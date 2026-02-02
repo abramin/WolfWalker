@@ -46,7 +46,7 @@ const routine = [
     repsPerSide: 15,
     purpose: "Strengthen the front of the ankle.",
     instructions: "Sit down, use the band to pull toes up.",
-    image: "assets/ex_band_dorsiflexion.png"
+    image: "assets/ex_band_dorsi_pull.png"
   },
   {
     name: "Mini Squats (heels flat)",
@@ -608,7 +608,10 @@ function awardSticker() {
   const STICKERS = [
     'sticker_acorn', 'sticker_butterfly', 'sticker_feather_blue',
     'sticker_leaf_gold', 'sticker_moon_crescent', 'sticker_owl',
-    'sticker_tree_pine', 'sticker_wolf_paw'
+    'sticker_tree_pine', 'sticker_wolf_paw',
+    'sticker_fox_circle', 'sticker_firefly_circle', 'sticker_rune_circle',
+    'sticker_owl_circle', 'sticker_leaf_circle', 'sticker_moon_circle',
+    'sticker_mushroom_circle', 'sticker_paw_circle'
   ];
 
   const today = getTodayString();
@@ -1924,7 +1927,7 @@ function checkAndShowDailyAnimation() {
   if (!overlay) return;
 
   const today = getTodayString();
-  
+
   // 1. Check Date
   if (today !== SPECIAL_ANIMATION_DATE) {
     return;
@@ -1940,7 +1943,7 @@ function checkAndShowDailyAnimation() {
   const dateObj = new Date();
   const options = { weekday: 'long' };
   const dayName = new Intl.DateTimeFormat('en-US', options).format(dateObj);
-  
+
   const msgElement = document.getElementById('dailyMessage');
   if (msgElement) {
     msgElement.innerHTML = `Happy ${dayName} <br> Dalia!`;
@@ -1948,7 +1951,7 @@ function checkAndShowDailyAnimation() {
 
   // 4. Show Overlay
   overlay.classList.remove('hidden');
-  
+
   // 5. Play Audio (Reuse celebration or Cue)
   // setTimeout(() => audioManager.playCue('beep'), 500); // Optional
 
@@ -1957,7 +1960,7 @@ function checkAndShowDailyAnimation() {
 
   // 7. Auto-Dismiss and Save
   const DISMISS_TIME = 6000; // 6 seconds
-  
+
   // Allow click to dismiss early
   overlay.addEventListener('click', () => {
     dismissDailyAnimation(overlay, seenKey);
@@ -1965,19 +1968,19 @@ function checkAndShowDailyAnimation() {
 
   setTimeout(() => {
     if (!overlay.classList.contains('hidden')) {
-        dismissDailyAnimation(overlay, seenKey);
+      dismissDailyAnimation(overlay, seenKey);
     }
   }, DISMISS_TIME);
 }
 
 function dismissDailyAnimation(overlay, key) {
-    overlay.style.opacity = '0';
-    setTimeout(() => {
-        overlay.classList.add('hidden');
-        overlay.style.opacity = ''; // Reset for next time (though next time is next year probably)
-        stopConfettiAnimation();
-    }, 1000);
-    localStorage.setItem(key, 'true');
+  overlay.style.opacity = '0';
+  setTimeout(() => {
+    overlay.classList.add('hidden');
+    overlay.style.opacity = ''; // Reset for next time (though next time is next year probably)
+    stopConfettiAnimation();
+  }, 1000);
+  localStorage.setItem(key, 'true');
 }
 
 // Confetti System
@@ -1985,66 +1988,66 @@ let confettiInterval;
 const CONFETTI_COLORS = ['#ffd700', '#00e5ff', '#ff1744', '#ffffff', '#76ff03'];
 
 function startConfettiAnimation() {
-    const overlay = document.getElementById('dailyAnimationOverlay');
-    if (!overlay) return;
+  const overlay = document.getElementById('dailyAnimationOverlay');
+  if (!overlay) return;
 
-    // Burst initially
-    for(let i=0; i<30; i++) spawnConfetti(overlay);
+  // Burst initially
+  for (let i = 0; i < 30; i++) spawnConfetti(overlay);
 
-    // Continuous rain
-    confettiInterval = setInterval(() => {
-        spawnConfetti(overlay);
-    }, 100);
+  // Continuous rain
+  confettiInterval = setInterval(() => {
+    spawnConfetti(overlay);
+  }, 100);
 }
 
 function stopConfettiAnimation() {
-    if (confettiInterval) clearInterval(confettiInterval);
-    // Cleanup DOM particles
-    const overlay = document.getElementById('dailyAnimationOverlay');
-    if(overlay) {
-        const particles = overlay.querySelectorAll('.confetti');
-        particles.forEach(p => p.remove());
-    }
+  if (confettiInterval) clearInterval(confettiInterval);
+  // Cleanup DOM particles
+  const overlay = document.getElementById('dailyAnimationOverlay');
+  if (overlay) {
+    const particles = overlay.querySelectorAll('.confetti');
+    particles.forEach(p => p.remove());
+  }
 }
 
 function spawnConfetti(container) {
-    const el = document.createElement('div');
-    el.classList.add('confetti');
-    
-    // Random Properties
-    const color = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
-    const left = Math.random() * 100; // %
-    const duration = 3 + Math.random() * 4; // 3-7s
-    const size = 10 + Math.random() * 15; // 10-25px
-    
-    // Random Shape
-    const type = Math.random();
-    
-    el.style.left = left + '%';
-    el.style.width = size + 'px';
-    el.style.height = size + 'px';
-    el.style.backgroundColor = color;
-    el.style.animationDuration = duration + 's';
-    
-    if (type < 0.33) {
-        // Circle (Spirit)
-        el.style.borderRadius = '50%';
-        el.style.boxShadow = `0 0 10px ${color}`;
-    } else if (type < 0.66) {
-        // Leaf shape
-        el.style.borderRadius = '0px 50% 0px 50%';
-        el.style.transform = `rotate(${Math.random() * 360}deg)`;
-    } else {
-        // Square/Diamond (Rune fragment)
-        el.style.transform = `rotate(${45 + Math.random() * 90}deg)`;
-    }
-    
-    container.appendChild(el);
-    
-    // Remove after animation
-    setTimeout(() => {
-        el.remove();
-    }, duration * 1000);
+  const el = document.createElement('div');
+  el.classList.add('confetti');
+
+  // Random Properties
+  const color = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+  const left = Math.random() * 100; // %
+  const duration = 3 + Math.random() * 4; // 3-7s
+  const size = 10 + Math.random() * 15; // 10-25px
+
+  // Random Shape
+  const type = Math.random();
+
+  el.style.left = left + '%';
+  el.style.width = size + 'px';
+  el.style.height = size + 'px';
+  el.style.backgroundColor = color;
+  el.style.animationDuration = duration + 's';
+
+  if (type < 0.33) {
+    // Circle (Spirit)
+    el.style.borderRadius = '50%';
+    el.style.boxShadow = `0 0 10px ${color}`;
+  } else if (type < 0.66) {
+    // Leaf shape
+    el.style.borderRadius = '0px 50% 0px 50%';
+    el.style.transform = `rotate(${Math.random() * 360}deg)`;
+  } else {
+    // Square/Diamond (Rune fragment)
+    el.style.transform = `rotate(${45 + Math.random() * 90}deg)`;
+  }
+
+  container.appendChild(el);
+
+  // Remove after animation
+  setTimeout(() => {
+    el.remove();
+  }, duration * 1000);
 }
 
 // Initialize
