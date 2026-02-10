@@ -330,6 +330,10 @@ const CELEBRATION_ASSETS = [
   "assets/stickers/sticker_owl.png",
   "assets/stickers/sticker_wolf_paw.png",
   "assets/wolf_spirit_blue.png",
+  "assets/stickers/sticker_bear_circle.png",
+  "assets/stickers/sticker_deer_circle.png",
+  "assets/stickers/sticker_rabbit_circle.png",
+  "assets/stickers/sticker_sun_circle.png",
 ];
 
 function saveSession() {
@@ -611,7 +615,12 @@ function awardSticker() {
     'sticker_tree_pine', 'sticker_wolf_paw',
     'sticker_fox_circle', 'sticker_firefly_circle', 'sticker_rune_circle',
     'sticker_owl_circle', 'sticker_leaf_circle', 'sticker_moon_circle',
-    'sticker_mushroom_circle', 'sticker_paw_circle'
+    'sticker_mushroom_circle', 'sticker_paw_circle',
+    // New Forest Magic Stickers
+    'sticker_bear_circle', 'sticker_deer_circle', 'sticker_rabbit_circle',
+    'sticker_hedgehog', 'sticker_fern_leaf', 'sticker_crystal_blue',
+    'sticker_sun_circle', 'sticker_star_gold', 'sticker_mushroom_red',
+    'sticker_flower_purple'
   ];
 
   const today = getTodayString();
@@ -631,11 +640,7 @@ function awardSticker() {
     // Pick a new one
     stickerToAward = available[Math.floor(Math.random() * available.length)];
   } else {
-    // All collected! Pick random duplicate or maybe nothing? 
-    // Let's award a duplicate for now to keep the fun going, or handle "completed" state.
-    // User asked for "1 sticker a day", didn't say unique. 
-    // But unique is better. If all collected, maybe return null or a special "golden" version?
-    // Let's just pick random.
+    // All collected! Pick random
     stickerToAward = STICKERS[Math.floor(Math.random() * STICKERS.length)];
   }
 
